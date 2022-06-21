@@ -19,7 +19,7 @@ const readiness = async () => {
   const isMongoReady = mongooseClient.isReady()
 
   // TODO:
-  // Add your connection checking.
+  // Add your connection checking..
   const isEverythingReady = isHttpReady && isMongoReady
 
   const baseResponse = {
