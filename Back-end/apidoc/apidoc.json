@@ -1,0 +1,11 @@
+{
+  "name": "{service-name}-service-api-doc",
+  "version": "1.0.0",
+  "description": "",
+  "title": "[JobThai Upgrade] {service-name}",
+  "url": "https://beta-service-upgrade.jobthai.com/{service-name}/api",
+  "template": {
+    "withCompare": true,
+    "withGenerator": true
+  }
+}

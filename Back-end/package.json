@@ -1,0 +1,57 @@
+{
+  "name": "thinknet-bootstrap",
+  "version": "0.4.0",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=16.14.0"
+  },
+  "scripts": {
+    "apidoc": "APP_ENV=test ./node_modules/apidoc/bin/apidoc -c apidoc/apidoc.json -i apidoc/src -o apidoc/des",
+    "apidoc:watch": "APP_ENV=test nodemon -w apidoc/src/* -x \"npm run apidoc\"",
+    "build": "babel -d dist src",
+    "dev": "nodemon src/server.js --exec babel-node -e js",
+    "start": "node dist/server.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:unit": "jest -c jest.config.unit.js",
+    "test:unit:watch": "jest -c jest.config.unit.js --watch",
+    "test:unit:coverage": "jest -c jest.config.unit.js --coverage",
+    "test:integration": "jest -c jest.config.int.js --runInBand",
+    "test:integration:watch": "jest -c jest.config.int.js --watch",
+    "test:integration:coverage": "jest -c jest.config.int.js --runInBand --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.thinknet.co.th/techforum/thinknet-bootstrap"
+  },
+  "author": "",
+  "license": "SEE LICENSE IN LICENSE",
+  "dependencies": {
+    "@godaddy/terminus": "4.10.*",
+    "@thinknet/express-response-error": "2.2.*",
+    "@thinknet/observer": "1.0.*",
+    "axios": "0.26.*",
+    "body-parser": "1.19.*",
+    "express": "4.17.*",
+    "express-validator": "6.14.*",
+    "method-override": "3.0.*",
+    "mongoose": "6.2.*"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.17.*",
+    "@babel/core": "7.17.*",
+    "@babel/node": "7.16.*",
+    "@babel/preset-env": "7.16.*",
+    "@types/jest": "27.4.*",
+    "apidoc": "0.50.*",
+    "babel-jest": "27.5.*",
+    "babel-plugin-rewire": "1.2.*",
+    "eslint": "8.9.*",
+    "eslint-config-airbnb-base": "15.0.*",
+    "eslint-plugin-import": "2.25.*",
+    "eslint-plugin-jest": "26.1.*",
+    "jest": "27.5.*",
+    "nodemon": "2.0.*",
+    "supertest": "6.2.*"
+  }
+}
