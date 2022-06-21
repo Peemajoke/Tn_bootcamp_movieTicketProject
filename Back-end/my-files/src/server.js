@@ -1,13 +1,16 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
-import routes from './routes'
+import routesMovie from './routes/movie'
+import routesTheater from './routes/theater'
+import routeesTicket from './routes/ticket'
 
 const app = express()
 
 const PORT = 3000
 
-const database = 'mongodb+srv://Peem:0858@tnbootcampexpressactivi.vwfz1c6.mongodb.net/school?retryWrites=true&w=majority'
+// const database = 'mongodb+srv://Peem:0858@tnbootcampexpressactivi.vwfz1c6.mongodb.net/school?retryWrites=true&w=majority'
+const database = 'mongodb+srv://Peem:0858@tnmovieticketcluster.afivcax.mongodb.net/MovieTicketProject?retryWrites=true&w=majority'
 
 mongoose.Promise = global.Promise
 mongoose.connect(database, { useNewUrlParser: true }).then(
@@ -26,7 +29,10 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // route to check if connection is ok.
 app.get('/healthz', (req, res) => res.status(200).json({ status: 'ok' }))
 
-app.use(routes)
+// route zone :)
+app.use('/api/v1/movies', routesMovie)
+app.use('/api/v1/theaters', routesTheater)
+app.use('/api/v1/tickets', routeesTicket)
 
 app.listen(PORT, (err) => {
   if (err) console.log('Error in server setup')
