@@ -6,6 +6,6 @@ const router = express.Router()
 
 router
   .get('/', theaterController.getAllTheaters)
-  .get('/:Number', theaterController.getMovieByNumber)
+  .get('/:Number', validator.getOneTheater, theaterController.getMovieByNumber)
 
 export default router

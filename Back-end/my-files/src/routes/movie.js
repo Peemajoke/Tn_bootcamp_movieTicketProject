@@ -17,6 +17,6 @@ router
   // .delete('/students/:ID', validator.deleteById, studentController.deleteStudentById)
   // .get('/students/:ID/gpax', validator.getById, studentController.getGpaxOfStudentById)
   .get('/', movieController.getAllMovies)
-  .get('/:ID', movieController.getMovieById)
+  .get('/:ID', validator.getOneMovie, movieController.getMovieById)
 
 export default router

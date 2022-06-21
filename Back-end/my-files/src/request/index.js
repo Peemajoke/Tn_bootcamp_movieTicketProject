@@ -1,12 +1,16 @@
 import executeValidator from './request'
-import getById from './getById'
-import deleteById from './deleteById'
-import create from './create'
-import updateById from './updateById'
+import getOneMovie from './movie/getOneMovie'
+import getOneTheater from './theater/getOneTheater'
+import createTicket from './ticket/create'
+import getOneTicket from './ticket/getOneTicket'
+import login from './auth/login'
+import register from './auth/register'
 
 export default {
-  create: executeValidator(create),
-  getById: executeValidator(getById),
-  updateById: executeValidator(updateById),
-  deleteById: executeValidator(deleteById),
+  createTicket: executeValidator(createTicket),
+  login: executeValidator(login),
+  register: executeValidator(register),
+  getOneTicket: executeValidator(getOneTicket),
+  getOneTheater: executeValidator(getOneTheater),
+  getOneMovie: executeValidator(getOneMovie),
 }

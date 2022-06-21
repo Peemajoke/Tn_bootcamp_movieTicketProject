@@ -1,5 +1,5 @@
 import { param, body } from 'express-validator'
-import validate from '../resources/validateMessages'
+import validate from '../../resources/validateMessages'
 
 //* NOTE: route parameter always a string with positive length. https://masteringjs.io/tutorials/express/route-parameters
 const validateFieldsList = [

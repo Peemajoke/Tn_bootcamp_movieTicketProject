@@ -6,7 +6,7 @@ const router = express.Router()
 
 router
   .get('/', ticketController.getAllTickets)
-  .get('/:RefNumber', ticketController.getTicketByRefNumber)
-  .post('/', ticketController.createTicket)
+  .get('/:RefNumber', validator.getOneTicket, ticketController.getTicketByRefNumber)
+  .post('/', validator.createTicket, ticketController.createTicket)
 
 export default router

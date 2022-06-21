@@ -5,8 +5,8 @@ import validator from '../request'
 const router = express.Router()
 
 router
-  .post('/register', authController.registerUser)
-  .post('/login', authController.login)
+  .post('/register', validator.register, authController.registerUser)
+  .post('/login', validator.login, authController.login)
   .get('/logout', authController.logout)
   .get('/me', authController.getMe)
 
