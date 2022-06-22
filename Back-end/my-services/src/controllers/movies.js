@@ -1,15 +1,13 @@
 import movieModel from '../models/movies'
 import {
-  NOT_FOUND_DATA, ERROR_CREATION, ERROR_DELETED, ERROR_UPDATED,
+  NOT_FOUND_DATA,
 } from '../constants/errors/unsuccess'
-import {
-  SUCCESS_CREATED, SUCCESS_UPDATED, SUCCESS_DELETED,
-} from '../constants/success'
 
 const getAllMovies = async (req, res) => {
   try {
     const result = await movieModel.find()
     // setTimeout(() => {
+    console.log(result)
     res.status(200).json(result)
     // }, 2000)
     if (!result) {

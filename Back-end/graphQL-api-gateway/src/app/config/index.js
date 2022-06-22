@@ -8,5 +8,5 @@ export const {
   NODE_ENV,
   APP_ENV,
   URL_PREFIX,
-  URL_BLOG_SERVICE
+  URL_SERVICE
 } = process.env

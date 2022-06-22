@@ -1,17 +1,24 @@
 import { gql } from 'apollo-server-express'
 import { merge } from 'lodash'
 import blog from './blog'
+import movie from './movie'
+import theater from './theater'
 
 const moduleTypeDefs = [
-  blog.typeDefs
+  // blog.typeDefs
+  movie.typeDefs,
+  theater.typeDefs
 ]
 
 const moduleQueries = [
-  blog.queries
+  // blog.queries
+  movie.queries,
+  theater.queries
 ]
 
 const moduleMutations = [
-  blog.mutations
+  // blog.mutations
+  // movie.mutations
 ]
 
 
@@ -22,20 +29,28 @@ const typeDefs = gql`
     ${moduleQueries.join('\n')}
   }
 
-  type Mutation {
-    ${moduleMutations.join('\n')}
-  }
+
 
   schema {
     query: Query,
-    mutation: Mutation
+    
+
+    
   }
 `
 const resolvers = merge(
-  blog.resolvers
+  // blog.resolvers
+  movie.resolvers,
+  theater.resolvers
 )
 
 export {
   typeDefs,
   resolvers,
 }
+
+// type Mutation {
+//   ${moduleMutations.join('\n')}
+// }
+
+// mutation: Mutation
