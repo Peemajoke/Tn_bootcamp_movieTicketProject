@@ -43,9 +43,9 @@ const login = async (req, res) => {
       return res.status(400).json({ success: false, msg: 'Invalid credentials' })
     }
 
-    user.testLog()
+    // user.testLog()
 
-    console.log(user)
+    // console.log(user)
     // check if password matches
     const isMatch = await user.matchPassword(password)
 

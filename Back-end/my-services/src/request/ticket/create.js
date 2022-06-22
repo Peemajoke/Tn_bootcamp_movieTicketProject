@@ -23,17 +23,12 @@ const validateFieldsList = [
     .withMessage(validate.notEmpty)
     .isInt()
     .withMessage(validate.isInt),
-  body('showTime')
-    .notEmpty()
-    .withMessage(validate.notEmpty)
-    .isObject()
-    .withMessage(validate.isObject),
-  body('showTime.theater')
+  body('theater')
     .notEmpty()
     .withMessage(validate.notEmpty)
     .isInt()
     .withMessage(validate.isInt),
-  body('showTime.dateTime')
+  body('dateTime')
     .notEmpty()
     .withMessage(validate.notEmpty)
     .isISO8601()
