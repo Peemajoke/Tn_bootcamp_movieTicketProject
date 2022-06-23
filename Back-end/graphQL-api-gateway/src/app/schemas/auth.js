@@ -38,22 +38,24 @@ const typeDefs = `
 `
 const queries = `
   getMe: GetMePayload
-  logout: RegisterAndLogoutPayload
+  
 `
 
 const mutations = `
   register(input: RegisterInput!): RegisterAndLogoutPayload
   login(input: LoginInput): LoginPayload
+  logout: RegisterAndLogoutPayload
 `
 
 const resolvers = {
     Query: {
         getMe: (_, args) => authController.getMe(),
-        logout: (_, args) => authController.logout(),
+        // logout: (_, args) => authController.logout(),
     },
     Mutation : {
         register: (_, args) => authController.register(args.input),
         login: (_,args) => authController.login(args.input),
+        logout: (_, args) => authController.logout(),
     },
   }
 

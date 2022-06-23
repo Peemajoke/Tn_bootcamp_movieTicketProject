@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import cookieParser from 'cookie-parser'
+import cors from 'cors'
 import routesMovie from './routes/movie'
 import routesTheater from './routes/theater'
 import routeesTicket from './routes/ticket'
@@ -24,6 +25,20 @@ mongoose.connect(database, { useNewUrlParser: true }).then(
     process.exit()
   },
 )
+
+const allowedOrigins = ['http://localhost:3002', 'http://localhost:8080', 'http://192.168.1.33:8080', 'http://192.168.1.33:3002']
+const corsOptions = {
+  origin(origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+}
+app.use(cors(corsOptions))
+
+// app.use(cors({ credentials: true, origin: true }))
 
 app.use(bodyParser.json({ type: 'application/json' }))
 app.use(bodyParser.urlencoded({ extended: true }))

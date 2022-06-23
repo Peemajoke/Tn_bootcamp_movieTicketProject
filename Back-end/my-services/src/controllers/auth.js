@@ -29,6 +29,8 @@ const registerUser = async (req, res) => {
 
 const login = async (req, res) => {
   try {
+    console.log(req)
+    console.log(req.cookie)
     const { email, password } = req.body
 
     // validate email & pw(password)
@@ -91,6 +93,8 @@ const logout = async (req, res) => {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
   })
+
+  console.log('logout!!')
 
   res.status(200).json({
     success: true,
