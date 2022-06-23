@@ -4,24 +4,28 @@ import blog from './blog'
 import movie from './movie'
 import theater from './theater'
 import ticket from './ticket'
+import auth from './auth'
 
 const moduleTypeDefs = [
   // blog.typeDefs
   movie.typeDefs,
   theater.typeDefs,
-  ticket.typeDefs
+  ticket.typeDefs,
+  auth.typeDefs
 ]
 
 const moduleQueries = [
   // blog.queries
   movie.queries,
   theater.queries,
-  ticket.queries
+  ticket.queries,
+  auth.queries
 ]
 
 const moduleMutations = [
   // blog.mutations
-  ticket.mutations
+  ticket.mutations,
+  auth.mutations
 ]
 
 
@@ -45,7 +49,8 @@ const resolvers = merge(
   // blog.resolvers
   movie.resolvers,
   theater.resolvers,
-  ticket.resolvers
+  ticket.resolvers,
+  auth.resolvers
 )
 
 export {

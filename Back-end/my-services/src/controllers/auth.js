@@ -100,6 +100,9 @@ const logout = async (req, res) => {
 
 const getMe = async (req, res) => {
   try {
+    console.log(req)
+    console.log(req.cookie)
+    console.log(req.headers.authorization)
     const token = req.headers.authorization.split(' ')[1]
     const decode = jwt.verify(token, 'amongus')
     const user = await userModel.findOne(decode.email)
