@@ -6,7 +6,7 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <ApolloProvider client={client}>
         <Component {...pageProps} />
-    </ApolloProvider>
+    </ApolloProvider> 
 )
 }
 export default MyApp
