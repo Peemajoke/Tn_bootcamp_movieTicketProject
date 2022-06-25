@@ -23,7 +23,7 @@ class Navbar extends Component {
     return (
       <nav className="menuBar">
         <div className="logo">
-          <a href="www.marca.com">S Major F</a>
+          <a href="/">S Major F</a>
         </div>
         <div className="menuCon">
           <div className="leftMenu">
