@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  front-end:
+    build: ./Front-end/client
+    container_name: front-end_movie-ticket
+    ports:
+      - '3002:3002'
+    volumes:
+      - ./Front-end/client:/app
+    stdin_open: true
+    tty: true
+    networks:
+      - movie_ticket_network
+
+  back-end:
+    build: ./Back-end/my-services
+    container_name: back-end_movie-ticket
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./Back-end/my-services:/app
+    networks:
+      - movie_ticket_network
+
+  api-gateway:
+    build: ./Back-end/graphQL-api-gateway
+    container_name: api-gateway_movie-ticket
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./Back-end/graphQL-api-gateway:/app
+    networks:
+      - movie_ticket_network
+    depends_on:
+      - back-end
+
+networks:
+  movie_ticket_network:

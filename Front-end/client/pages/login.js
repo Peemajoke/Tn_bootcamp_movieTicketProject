@@ -33,6 +33,8 @@ function login(props) {
     await login({ variables: { input: loginInput } });
     console.log(mutationLoading);
 
+    console.log(data)
+
     if (data.login.success) {
       console.log("data success");
       document.cookie = "token=" + data.login.token;
@@ -75,8 +77,8 @@ function login(props) {
     console.log(email);
     console.log(password);
 
-    // loginWithGQL();
-    loginDirect();
+    loginWithGQL();
+    // loginDirect();
   };
 
   return (

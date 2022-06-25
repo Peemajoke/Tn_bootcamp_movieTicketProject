@@ -11,7 +11,7 @@ class LeftMenu extends Component {
       <>
         <Menu mode="horizontal">
           <Menu.Item key="home">
-            <a href="/movieList">Home</a>
+            <a href="/">Home</a>
           </Menu.Item>
           <Menu.Item key="movieList">
             <a href="/movieList">Movie List</a>

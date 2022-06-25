@@ -1,0 +1,42 @@
+FROM node:16.15.1-alpine
+
+WORKDIR /app
+COPY . .
+RUN yarn
+RUN npm install
+RUN npm i --save next
+COPY . .
+EXPOSE 3002
+CMD [ "yarn", "dev" ]
+
+---------------------------------------------
+
+FROM node:16.15.1-alpine
+
+# set working directory
+WORKDIR /app
+
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# install app dependencies
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install
+
+# add app
+COPY . ./
+
+# start app
+CMD ["npm", "run", "dev"]
+
+-----------------------------------------
+
+WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn
+COPY . ./
+
+EXPOSE 3002
+
+CMD [ "yarn", "dev" ]
