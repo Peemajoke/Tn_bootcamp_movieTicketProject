@@ -3,18 +3,43 @@ import React, {useState} from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import Navbar from "../components/navbar";
 import Footer from "../components/Footer";
+import { useMutation, useQuery, gql } from "@apollo/client";
+import { useRouter } from 'next/router'
+
+const doRegisterMutation = gql`
+  mutation ($input: RegisterInput!) {
+    register(input: $input) {
+      success
+    }
+  }
+`;
 
 function register(props) {
     const [email,setEmail] = useState('')
     const [password, setPassword] = useState('')
+    // const [confirmPassword, setConfirmPassword] = useState('')
     const [firstname,setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
 
-    const onSubmit = () => {
-        console.log(firstname)
-        console.log(lastname)
-        console.log(email)
-        console.log(password)
+    const router = useRouter()
+    
+    const [register, { loading: mutationLoading, error: mutationError, data }] =
+    useMutation(doRegisterMutation);
+
+    const onSubmit = async () => {
+        // console.log(firstname)
+        // console.log(lastname)
+        // console.log(email)
+        // console.log(password)
+        const RegisterInput = {
+          email,
+          password,
+          firstname,
+          lastname
+        };
+        await register({ variables: { input: RegisterInput } });
+
+        router.push('/login')
     }
 
   return (
@@ -71,6 +96,15 @@ function register(props) {
         >
           <Input.Password onChange={e => setPassword(e.target.value)}/>
         </Form.Item>
+
+        {/* <Form.Item
+          label="Confirm Password"
+          name="confirm password"
+          rules={[{ required: true, message: "Please input your password!" }]}
+          style={{ width: "40%" }}
+        >
+          <Input.Password onChange={e => setConfirmPassword(e.target.value)}/>
+        </Form.Item> */}
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit" onClick={onSubmit}>

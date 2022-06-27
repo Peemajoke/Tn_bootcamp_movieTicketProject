@@ -13,7 +13,6 @@ function movieList(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
             <Navbar />
-                <h1>Movies List</h1>
                 <MoviesList />
             <Footer />
         </>
