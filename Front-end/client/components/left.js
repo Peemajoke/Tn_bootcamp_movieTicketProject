@@ -3,8 +3,6 @@ import { Menu } from "antd";
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
-const isLogin = true;
-
 class LeftMenu extends Component {
   render() {
     return (
@@ -26,7 +24,7 @@ class LeftMenu extends Component {
             <Menu.Item key="setting:4">Option 4</Menu.Item>
           </MenuItemGroup>
         </SubMenu> */}
-          {isLogin && (
+          {this.props.isnowlogin && (
             <Menu.Item key="alipay">
               <a href="/checkTicket">Check Ticket Details</a>
             </Menu.Item>

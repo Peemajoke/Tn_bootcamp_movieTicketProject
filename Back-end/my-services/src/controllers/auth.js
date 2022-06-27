@@ -55,6 +55,8 @@ const login = async (req, res) => {
       return res.status(400).json({ success: false, msg: 'Invalid credentials' })
     }
 
+    console.log(user)
+
     // create token
     // const token = user.getSignedJwtToken()
     // return res.status(200).json({ success: true, token })
@@ -69,11 +71,15 @@ const login = async (req, res) => {
 
 const sendTokenResponse = (user, statusCode, res) => {
   // create token
-  const token = user.getSignedJwtToken()
+  // const token = user.getSignedJwtToken()
+  const token = jwt.sign({
+    email: user.email, firstname: user.firstname, lastname: user.lastname
+  }, 'amongus')
+  console.log(token)
 
   // creat options
   const options = {
-    expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 is JWT_COOKIE_EXPRIED
+    expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // 30 is JWT_COOKIE_EXPRIED
     httpOnly: true,
   }
 

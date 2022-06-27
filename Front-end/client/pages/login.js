@@ -5,6 +5,8 @@ import Navbar from "../components/navbar";
 import Footer from "../components/Footer";
 import { useMutation, useQuery, gql } from "@apollo/client";
 import Cookies from "js-cookie";
+import { useRouter } from 'next/router'
+import jwt from 'jsonwebtoken'
 
 const doLoginMutation = gql`
   mutation ($input: LoginInput!) {
@@ -23,6 +25,8 @@ function login(props) {
 
   const [login, { loading: mutationLoading, error: mutationError, data }] =
     useMutation(doLoginMutation);
+
+  const router = useRouter()
 
   const loginWithGQL = async () => {
     const loginInput = {
@@ -77,8 +81,16 @@ function login(props) {
     console.log(email);
     console.log(password);
 
-    loginWithGQL();
+    await loginWithGQL();
     // loginDirect();
+    // if (document.cookie) {
+    //   router.push('/')
+    // }
+    if (Cookies.get('token')!=null){
+      console.log(Cookies.get('token'))
+      console.log("login pass")
+      router.push('/')
+    }
   };
 
   return (

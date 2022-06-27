@@ -1,12 +1,46 @@
 import React, { Component } from "react";
 import { Menu } from "antd";
+import jwt from 'jsonwebtoken'
+import Cookies from 'js-cookie'
+import { useMutation, useQuery, gql } from '@apollo/client';
 
-const isLogin = true;
+const doLogout = gql`
+  mutation{
+   logout{
+      success
+  }
+}
+`
+
+// const [logoutgql, { loading: mutationLoadingLogout, error: mutationErrorLogout , data}] = useMutation(doLogout);
+
+const  doingLogout = () => {
+  // await logoutgql()
+    // while (mutationLoadingLogout){
+    //     console.log('waiting')
+    // }
+    // console.log(data)
+    document.cookie = 'token=' + null
+    console.log(document.cookie)
+}
+
+const displayEmail = () => {
+  if (Cookies.get('token') != 'null'){
+    return jwt.decode(Cookies.get('token')).email
+  }else return null
+}
+
 class RightMenu extends Component {
+
+  componentDidMount() {
+    console.log(document.cookie)
+    console.log(jwt.decode(Cookies.get('token')))
+  }
+  
   render() {
     return (
       <>
-        {isLogin && (
+        {!this.props.isnowlogin && (
           <Menu mode="horizontal">
             <Menu.Item key="mail">
               <a href="/register">Register</a>
@@ -16,10 +50,11 @@ class RightMenu extends Component {
             </Menu.Item>
           </Menu>
         )}
-        {!isLogin && (
+        {this.props.isnowlogin && (
           <Menu mode="horizontal">
+            <p style={{margin:'0'}}>Welcome {displayEmail()}</p>
             <Menu.Item key="mail">
-              <a href="/">Logout</a>
+              <a href="/" onClick={doingLogout}>Logout</a>
             </Menu.Item>
           </Menu>
         )}
