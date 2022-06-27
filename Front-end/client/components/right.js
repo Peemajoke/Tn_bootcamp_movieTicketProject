@@ -52,7 +52,7 @@ class RightMenu extends Component {
         )}
         {this.props.isnowlogin && (
           <Menu mode="horizontal">
-            <p style={{margin:'0'}}>Welcome {displayEmail()}</p>
+            <p style={{margin:'0'}}>{displayEmail()}</p>
             <Menu.Item key="mail">
               <a href="/" onClick={doingLogout}>Logout</a>
             </Menu.Item>

@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/Footer";
 import { AudioOutlined } from "@ant-design/icons";
-import { Input, Space } from "antd";
+import { Input, Space, Descriptions } from "antd";
+import { useMutation, useLazyQuery, gql } from "@apollo/client";
 
 const { Search } = Input;
 
@@ -16,12 +17,52 @@ const suffix = (
   />
 );
 
+const getTicketByRef_num = gql`
+query($ref_num: String!) {
+  getTicketByID(ref_num: $ref_num) {
+    data {
+      _id
+      ref_num
+      email
+      movie
+      theater
+      dateTime
+      seat
+      price
+    }
+  }
+}
+`;
+
 function checkTicket(props) {
   const [ref_num, setRef_num] = useState("");
+  const [isSearchOnce, setIsSearchOnce] = useState(false);
 
-  const onSearch = () => {
+  const [getTicket,{ loading, data }] = useLazyQuery(getTicketByRef_num);
+
+  const onSearch = async () => {
+    
     console.log(ref_num);
+    await getTicket({ variables: { ref_num: ref_num }})
+    // console.log('fetch result:', data)
+    // console.log('fetch result:', data.getTicketByID)
+    // console.log('fetch movie:', data.getTicketByID.data.movie)
+    setIsSearchOnce(true)
+    console.log('isSearch: ', isSearchOnce)
   };
+
+  const showTicketDetail = () => {
+    if (data!==undefined){
+      return (<Descriptions title="Ticket Info">
+      <Descriptions.Item label="ref_num">{data.getTicketByID.data.ref_num}</Descriptions.Item>
+      <Descriptions.Item label="Movie">{data.getTicketByID.data.movie}</Descriptions.Item>
+      <Descriptions.Item label="Theater">{data.getTicketByID.data.theater}</Descriptions.Item>
+      <Descriptions.Item label="Show Time">{data.getTicketByID.data.dateTime}</Descriptions.Item>
+      <Descriptions.Item label="Seat">{data.getTicketByID.data.seat}</Descriptions.Item>
+    </Descriptions>)
+    }else return null
+  }
+
   return (
     <>
       <Head>
@@ -33,14 +74,16 @@ function checkTicket(props) {
 
       <h1>Check For Ticket Information</h1>
       <Search
-        placeholder="input search text"
+        placeholder="type ticket's ref_number"
         allowClear
         onSearch={onSearch}
-        style={{ width: 200 }}
+        style={{ width: 300 }}
         onChange={(e) => setRef_num(e.target.value)}
       />
-      <h2>Ticket detail here when data is here.</h2>
-
+      <br />
+      {loading&&<p>loading...</p>}
+      {isSearchOnce&&data&&data.getTicketByID==null&&<p>Sorry, there is no ticket you are looking for.</p>}
+      {isSearchOnce&&data&&data.getTicketByID!=null&&showTicketDetail()}
       <Footer />
     </>
   );
