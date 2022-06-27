@@ -81,7 +81,7 @@ function checkTicket(props) {
         onChange={(e) => setRef_num(e.target.value)}
       />
       <br />
-      {loading&&<p>loading...</p>}
+      {/* {loading&&<p>loading...</p>} */}
       {isSearchOnce&&data&&data.getTicketByID==null&&<p>Sorry, there is no ticket you are looking for.</p>}
       {isSearchOnce&&data&&data.getTicketByID!=null&&showTicketDetail()}
       <Footer />
