@@ -18,5 +18,6 @@ router
   // .get('/students/:ID/gpax', validator.getById, studentController.getGpaxOfStudentById)
   .get('/', movieController.getAllMovies)
   .get('/:ID', validator.getOneMovie, movieController.getMovieById)
+  .put('/:ID', validator.updateOneMovie, movieController.updateMovieById)
 
 export default router

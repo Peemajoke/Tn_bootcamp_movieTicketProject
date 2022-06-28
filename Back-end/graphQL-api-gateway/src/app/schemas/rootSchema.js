@@ -24,6 +24,7 @@ const moduleQueries = [
 
 const moduleMutations = [
   // blog.mutations
+  movie.mutations,
   ticket.mutations,
   auth.mutations
 ]

@@ -5,6 +5,7 @@ import createTicket from './ticket/create'
 import getOneTicket from './ticket/getOneTicket'
 import login from './auth/login'
 import register from './auth/register'
+import updateOneMovie from './movie/updateOneMovie'
 
 export default {
   createTicket: executeValidator(createTicket),
@@ -13,4 +14,5 @@ export default {
   getOneTicket: executeValidator(getOneTicket),
   getOneTheater: executeValidator(getOneTheater),
   getOneMovie: executeValidator(getOneMovie),
+  updateOneMovie: executeValidator(updateOneMovie),
 }

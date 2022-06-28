@@ -10,7 +10,7 @@ const findOne = (query, fields = {}, options = {}) => Movie.findOne(query, field
 
 // const findOneAndUpdate = (data) => Movie.findOneAndUpdate({}, data, { upsert: true }).exec()
 
-const findOneAndUpdate = (query, data) => Movie.findOneAndUpdate(query, data, { upsert: true }).exec()
+const findOneAndUpdate = (query, data) => Movie.findOneAndUpdate(query, data)//.exec()
 
 export default {
   create,

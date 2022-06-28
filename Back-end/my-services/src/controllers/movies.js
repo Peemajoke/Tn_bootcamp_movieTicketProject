@@ -1,6 +1,6 @@
 import movieModel from '../models/movies'
 import {
-  NOT_FOUND_DATA,
+  NOT_FOUND_DATA, ERROR_UPDATED,
 } from '../constants/errors/unsuccess'
 
 const getAllMovies = async (req, res) => {
@@ -31,11 +31,22 @@ const getMovieById = async (req, res) => {
   }
 }
 
+const updateMovieById = async (req, res) => {
+  const { ID } = req.params
+  try {
+    const result = await movieModel.findOneAndUpdate({ id: ID }, req.body)
+    if (!result) {
+      throw NOT_FOUND_DATA
+    }
+    res.status(200).json(result)
+  } catch (err) {
+    console.log(err)
+    throw ERROR_UPDATED
+  }
+}
+
 export default {
   getAllMovies,
   getMovieById,
-  // createStudent,
-  // updateStudentById,
-  // deleteStudentById,
-  // getGpaxOfStudentById,
+  updateMovieById,
 }

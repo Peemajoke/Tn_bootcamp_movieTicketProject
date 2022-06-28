@@ -47,6 +47,15 @@ const typeDefs = `
   type MoviePayload {
     data: Movie
   }
+
+  input UpdateMovieInput{
+    movie_id: String
+    name: String
+    description: String
+    genre: Genre
+    length: Int
+    coverURL: String
+  }
 `
 
 const queries = `
@@ -54,11 +63,9 @@ const queries = `
   getMovieByID(_id: ID!): MoviePayload
 `
 
-// const mutations = `
-//   createBlog(input: CreateBlogInput!): BlogPayload
-//   updateBlog(_id: ID!, input: CreateBlogInput!): ResponseUpdatingPayload
-//   deleteBlog(_id: ID!): ResponseUpdatingPayload
-// `
+const mutations = `
+  updateMovie(_id: ID!, input: UpdateMovieInput!): MoviePayload
+`
 const resolvers = {
   DateTime: DateTimeResolver,
 
@@ -66,11 +73,9 @@ const resolvers = {
     getAllMovie: (_, args) => movieController.getMovieList(),
     getMovieByID: (_, args) => movieController.getMovieByID(args._id)
   },
-//   Mutation : {
-//     createBlog: (_, args) => blogController.createBlog(args.input),
-//     updateBlog: (_, args) => blogController.updateBlog(args._id, args.input),
-//     deleteBlog: (_, args) => blogController.deleteBlog(args._id)
-//   },
+  Mutation : {
+    updateMovie: (_, args) => movieController.updateMovie(args._id, args.input),
+  },
   Movie: {
     genre: async (data) => {
         console.log(data.showTime)
@@ -84,6 +89,6 @@ const resolvers = {
 export default {
   typeDefs,
   queries,
-//   mutations,
+  mutations,
   resolvers,
 }

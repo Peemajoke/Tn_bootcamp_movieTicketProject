@@ -18,7 +18,17 @@ const getMovieByID = async (id) => {
   }
 }
 
+const updateMovie = async (id, movieData) => {
+  try {
+    const response = await blogService.updateBlog(id, movieData)
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export default {
   getMovieList,
   getMovieByID,
+  updateMovie,
 }

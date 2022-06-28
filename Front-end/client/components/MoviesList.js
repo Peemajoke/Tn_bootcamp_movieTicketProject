@@ -39,6 +39,7 @@ function MoviesList(props) {
     console.log("action params:", movieObject)
     const temp = {
       type: 'movieSelectMode',
+      movie_id: movieObject.movie_id,
       movieName: movieObject.name,
       description: movieObject.description,
       genre: movieObject.genre,
