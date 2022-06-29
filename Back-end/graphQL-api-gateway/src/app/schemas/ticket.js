@@ -48,7 +48,10 @@ const resolvers = {
         getTicketByID: (_, args) => ticketController.getTicketByID(args.ref_num),
     },
     Mutation : {
-        createTicket: (_, args) => ticketController.createTicket(args.input),
+        createTicket: (_, args) => {
+          console.log(args)
+          ticketController.createTicket(args.input)
+        },
     },
   }
 

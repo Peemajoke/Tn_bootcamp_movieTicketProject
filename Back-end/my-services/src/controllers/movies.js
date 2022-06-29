@@ -7,7 +7,7 @@ const getAllMovies = async (req, res) => {
   try {
     const result = await movieModel.find()
     // setTimeout(() => {
-    console.log(result)
+    // console.log(result)
     res.status(200).json(result)
     // }, 2000)
     if (!result) {
@@ -34,6 +34,7 @@ const getMovieById = async (req, res) => {
 const updateMovieById = async (req, res) => {
   const { ID } = req.params
   try {
+    // console.log(req.body.showTime)
     const result = await movieModel.findOneAndUpdate({ id: ID }, req.body)
     if (!result) {
       throw NOT_FOUND_DATA

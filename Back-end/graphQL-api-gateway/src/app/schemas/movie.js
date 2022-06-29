@@ -18,15 +18,10 @@ const typeDefs = `
     Shojo
   }
 
-  type Seat {
-    row: Int
-    col: Int
-  }
-
   type Showtime {
     theater: Int!
     dateTime: DateTime
-    reservedSeat: [Seat]!
+    reservedSeat: [String]
   }
 
   type Movie { 
@@ -78,7 +73,7 @@ const resolvers = {
   },
   Movie: {
     genre: async (data) => {
-        console.log(data.showTime)
+        // console.log(data.showTime)
       const getGenre = await movieService.getGenreByENUM(data.genre)
       return getGenre?.data?.value
     },

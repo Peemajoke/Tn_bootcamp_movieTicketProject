@@ -33,8 +33,8 @@ const displayEmail = () => {
 class RightMenu extends Component {
 
   componentDidMount() {
-    console.log(document.cookie)
-    console.log(jwt.decode(Cookies.get('token')))
+    // console.log(document.cookie)
+    // console.log(jwt.decode(Cookies.get('token')))
   }
   
   render() {

@@ -33,6 +33,7 @@ const getTicketByRefNumber = async (req, res) => {
 
 const createTicket = async (req, res) => {
   try {
+    console.log('here')
     const result = await ticketModel.create(req.body)
     console.log(result)
     res.status(201).json(result)

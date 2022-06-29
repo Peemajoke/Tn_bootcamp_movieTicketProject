@@ -21,6 +21,7 @@ const getTicketList = async ()  => {
   
   const createTicket = async (ticketData) => {
     try {
+      console.log('here')
       const response = await ticketService.createTicket(ticketData)
       return {
         data: response.data

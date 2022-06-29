@@ -20,10 +20,7 @@ const getMovies = gql`
         showTime {
           theater
           dateTime
-          reservedSeat {
-            row
-            col
-          }
+          reservedSeat
         }
       }
     }

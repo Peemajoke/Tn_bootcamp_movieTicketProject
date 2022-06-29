@@ -1,14 +1,9 @@
 import mongoose from 'mongoose'
 
-const seatSchema = new mongoose.Schema({
-  row: { type: Number, required: true },
-  column: { type: Number, required: true },
-})
-
 const ShowTimeSchema = new mongoose.Schema({
   theater: { type: Number, required: true },
   dateTime: { type: Date, required: true },
-  reservedSeat: { type: [seatSchema], required: true },
+  reservedSeat: { type: [String], required: true },
 })
 
 const MovieSchema = new mongoose.Schema({

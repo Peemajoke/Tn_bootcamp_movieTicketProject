@@ -32,8 +32,8 @@ class Navbar extends Component {
         isLogin: true,
       });
     }
-    console.log("isLogin", this.state.isLogin)
-    console.log(Cookies.get('token'))
+    // console.log("isLogin", this.state.isLogin)
+    // console.log(Cookies.get('token'))
   }
 
   render() {
