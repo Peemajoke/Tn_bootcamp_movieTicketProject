@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/Footer";
 import { AudioOutlined } from "@ant-design/icons";
-import { Input, Space, Descriptions } from "antd";
+import { Input, Space, Descriptions, Modal } from "antd";
 import { useMutation, useLazyQuery, gql } from "@apollo/client";
 
 const { Search } = Input;
@@ -41,6 +41,13 @@ function checkTicket(props) {
   const [getTicket,{ loading, data }] = useLazyQuery(getTicketByRef_num);
 
   const onSearch = async () => {
+
+    if(ref_num==""){
+      Modal.warning({
+        title: 'Cannot perform this search!',
+        content: `A ticket's reference code must be provide to perform a search.`,
+      });
+    }
     
     console.log(ref_num);
     await getTicket({ variables: { ref_num: ref_num }})
@@ -57,7 +64,7 @@ function checkTicket(props) {
       <Descriptions.Item label="ref_num">{data.getTicketByID.data.ref_num}</Descriptions.Item>
       <Descriptions.Item label="Movie">{data.getTicketByID.data.movie}</Descriptions.Item>
       <Descriptions.Item label="Theater">{data.getTicketByID.data.theater}</Descriptions.Item>
-      <Descriptions.Item label="Show Time">{data.getTicketByID.data.dateTime}</Descriptions.Item>
+      <Descriptions.Item label="Show Time">{data.getTicketByID.data.dateTime.slice(11,16)}</Descriptions.Item>
       <Descriptions.Item label="Seat">{data.getTicketByID.data.seat}</Descriptions.Item>
     </Descriptions>)
     }else return null

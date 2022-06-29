@@ -5,6 +5,15 @@ import Navbar from "../components/navbar";
 import Footer from "../components/Footer";
 import { Content } from "antd/lib/layout/layout";
 import MoviesList from "../components/MoviesList";
+import { Carousel } from 'antd';
+
+const contentStyle = {
+  height: '350px',
+  color: '#fff',
+  lineHeight: '250px',
+  textAlign: 'center',
+  background: '#364d79',
+};
 
 export default function Home() {
   return (
@@ -17,7 +26,25 @@ export default function Home() {
 
       <Navbar />
 
-      <Content>Welcome!</Content>
+      {/* <Content>Welcome!</Content> */}
+      <Carousel autoplay>
+    <div>
+      <h3 style={contentStyle}>
+        <img src="https://i.ibb.co/KxVmH9M/truemoneywallet-major-cineplex-promotion-20210928-1100x550px.webp" style={{width:'100%', height:'100%'}}/>
+      </h3>
+    </div>
+    <div>
+      <h3 style={contentStyle}>
+        <img src="https://i.ibb.co/dfBJF4p/JCB-x-Major-Cineplex-1-get-1-promo.webp" style={{width:'100%', height:'100%'}}/>
+      </h3>
+    </div>
+    <div>
+      <h3 style={contentStyle}>
+        <img src="https://i.ibb.co/vsKHXRr/The-Beatles-Get-Back-landscape.webp" style={{width:'100%', height:'100%'}}/>
+      </h3>
+    </div>
+  </Carousel>
+
       <MoviesList />
 
       <Footer />

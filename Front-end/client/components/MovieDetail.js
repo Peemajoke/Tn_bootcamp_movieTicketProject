@@ -14,7 +14,7 @@ function MovieDetail(props) {
         <Space direction="horizontal">
         <img
               alt="example"
-              src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+              src={selectedMovie.coverURL}
               style={{ width: 150, height: 200}}
             />
             <br />

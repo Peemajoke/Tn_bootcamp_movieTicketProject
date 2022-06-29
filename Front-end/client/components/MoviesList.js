@@ -64,7 +64,7 @@ function MoviesList(props) {
           cover={
             <img
               alt="example"
-              src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+              src={item.coverURL}
             />
           }
         >
@@ -101,7 +101,7 @@ function MoviesList(props) {
 
   return (
     <>
-      <h1>Movie List</h1>
+      <h1 style={{textAlign:'center'}}>Movie List</h1>
       <Space direction="horizontal">
       {data&&genMovieCard()}
       </Space>
