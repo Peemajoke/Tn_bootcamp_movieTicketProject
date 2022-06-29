@@ -22,6 +22,8 @@ function showTime(props) {
     const temp = {
       type: 'reserveSeatMode',
       movie_id: selectedMovie.movie_id,
+      theater: showTimeObject.theater,
+      movieName: selectedMovie.movieName,
       showTime: showTimeObject.dateTime
     }
     console.log("to be in redux", temp)

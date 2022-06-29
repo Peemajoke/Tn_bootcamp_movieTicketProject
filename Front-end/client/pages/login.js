@@ -7,6 +7,7 @@ import { useMutation, useQuery, gql } from "@apollo/client";
 import Cookies from "js-cookie";
 import { useRouter } from 'next/router'
 import jwt from 'jsonwebtoken'
+import { useDispatch, useSelector } from "react-redux";
 
 const doLoginMutation = gql`
   mutation ($input: LoginInput!) {
@@ -20,6 +21,10 @@ const doLoginMutation = gql`
 const url = 'http://localhost:3000/api/v1/auth/login'
 
 function login(props) {
+  const selectedMovieName = useSelector(
+    (state) => state.movieSelect.movieName
+  );
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -88,8 +93,8 @@ function login(props) {
     // }
     if (Cookies.get('token')!=null){
       console.log(Cookies.get('token'))
-      console.log("login pass")
-      router.push('/')
+      if(selectedMovieName) router.push('/reserveSeat')
+      else router.push('/')
     }
   };
 

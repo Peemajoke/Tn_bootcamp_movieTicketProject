@@ -6,6 +6,7 @@ import client from "../src/config/initApollo";
 import { Provider } from 'react-redux'
 import withRedux from 'next-redux-wrapper'
 import store from '../src/redux/store'
+import "../styles/seat.css";
 
 function MyApp({ Component, pageProps }) {
   return (

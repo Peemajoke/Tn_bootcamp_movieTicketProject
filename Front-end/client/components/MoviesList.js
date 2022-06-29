@@ -1,6 +1,6 @@
 import React, {useCallback} from "react";
 import { useMutation, useQuery, gql } from "@apollo/client";
-import { Card } from "antd";
+import { Card, Space } from "antd";
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 
@@ -105,7 +105,9 @@ function MoviesList(props) {
   return (
     <>
       <h1>Movie List</h1>
+      <Space direction="horizontal">
       {data&&genMovieCard()}
+      </Space>
     </>
   );
 }
