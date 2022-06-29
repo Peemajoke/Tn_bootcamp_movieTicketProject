@@ -10,7 +10,7 @@ function MovieDetail(props) {
   return (
     <>
       <div className="site-card-border-less-wrapper">
-        <Card title={selectedMovie.movieName} bordered={false} style={{ width: '90%', backgroundColor: "skyblue" }}>
+        <Card title={selectedMovie.movieName} bordered={false} style={{ width: '90%', backgroundColor: "#efefef" }}>
         <Space direction="horizontal">
         <img
               alt="example"

@@ -8,7 +8,8 @@ import MoviesList from "../components/MoviesList";
 import { Carousel } from 'antd';
 
 const contentStyle = {
-  height: '350px',
+  height: '500px',
+  width: '100%',
   color: '#fff',
   lineHeight: '250px',
   textAlign: 'center',
