@@ -26,7 +26,7 @@ mongoose.connect(database, { useNewUrlParser: true }).then(
   },
 )
 
-const allowedOrigins = ['http://localhost:3002', 'http://localhost:8080', 'http://192.168.1.33:8080', 'http://192.168.1.33:3002']
+const allowedOrigins = ['http://localhost:3002', 'http://localhost:8080/graphql', 'http://192.168.1.33:8080/graphql', 'http://192.168.1.33:3002']
 const corsOptions = {
   origin(origin, callback) {
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
@@ -35,7 +35,13 @@ const corsOptions = {
       callback(new Error('Not allowed by CORS'))
     }
   },
+  Credential: true,
 }
+
+// const corsOptions = {
+//   origin: 'http://localhost:8080/graphql',
+//   Credential: true,
+// }
 app.use(cors(corsOptions))
 
 // app.use(cors({ credentials: true, origin: true }))

@@ -18,10 +18,20 @@ const getTicketList = async ()  => {
       console.log(error)
     }
   }
+
+  const getTicketByIDForClient = async (ref_num, tokenData) => {
+    console.log('here')
+    console.log(tokenData)
+    try {
+      const response = await ticketService.getTicketByIDForClient(ref_num, tokenData)
+      return response
+    } catch (error) {
+      console.log(error)
+    }
+  }
   
   const createTicket = async (ticketData) => {
     try {
-      console.log('here')
       const response = await ticketService.createTicket(ticketData)
       return {
         data: response.data
@@ -34,5 +44,6 @@ const getTicketList = async ()  => {
   export default {
     getTicketList,
     getTicketByID,
+    getTicketByIDForClient,
     createTicket,
   }

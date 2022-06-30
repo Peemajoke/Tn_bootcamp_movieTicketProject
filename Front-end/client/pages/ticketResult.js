@@ -62,6 +62,7 @@ function ticketResult(props) {
       </Link>
         <br />
       </Form.Item>
+        <br />
       {/* <Footer /> */}
       </div>
     </>

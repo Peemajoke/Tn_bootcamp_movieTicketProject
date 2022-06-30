@@ -5,7 +5,7 @@ const MenuItemGroup = Menu.ItemGroup;
 
 class LeftMenu extends Component {
   render() {
-    console.log('left', this.props.isnowlogin)
+    // console.log('left', this.props.isnowlogin)
     return (
       <>
         <Menu mode="horizontal">

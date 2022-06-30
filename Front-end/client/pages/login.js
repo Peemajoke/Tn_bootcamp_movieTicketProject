@@ -34,17 +34,17 @@ function login(props) {
 
   const router = useRouter()
 
-  const assignToken = (token) => {
-    if (token) {
-      setisConfirmPasswordMatched(true)
-      console.log("data success");
-      document.cookie = "token=" + data.login.token;
-      if(selectedMovieName) router.push('/reserveSeat')
-      else router.push('/')
-    }else{
-      setisConfirmPasswordMatched(false)
-    }
-  }
+  // const assignToken = (token) => {
+  //   if (token) {
+  //     setisConfirmPasswordMatched(true)
+  //     console.log("data success");
+  //     document.cookie = "token=" + data.login.token;
+  //     if(selectedMovieName) router.push('/reserveSeat')
+  //     else router.push('/')
+  //   }else{
+  //     setisConfirmPasswordMatched(false)
+  //   }
+  // }
 
   const loginWithGQL = async () => {
     const loginInput = {
@@ -52,7 +52,7 @@ function login(props) {
       password: password,
     };
 
-    await login({ variables: { input: loginInput } });
+    await login({ variables: { input: loginInput } })
 
     if (data!==undefined&&data.login&&data.login.success) {
       setisConfirmPasswordMatched(true)

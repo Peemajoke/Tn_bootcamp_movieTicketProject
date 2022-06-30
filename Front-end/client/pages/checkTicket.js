@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import { AudioOutlined } from "@ant-design/icons";
 import { Input, Space, Descriptions, Modal, Form } from "antd";
 import { useMutation, useLazyQuery, gql } from "@apollo/client";
+import Cookies from 'js-cookie'
 
 const { Search } = Input;
 
@@ -17,9 +18,26 @@ const suffix = (
   />
 );
 
-const getTicketByRef_num = gql`
-query($ref_num: String!) {
-  getTicketByID(ref_num: $ref_num) {
+// const getTicketByRef_num = gql`
+// query($ref_num: String!) {
+//   getTicketByID(ref_num: $ref_num) {
+//     data {
+//       _id
+//       ref_num
+//       email
+//       movie
+//       theater
+//       dateTime
+//       seat
+//       price
+//     }
+//   }
+// }
+// `;
+
+const getTicketByRef_numForClient = gql`
+query($ref_num: String!, $input: FindTicketForClientInput!) {
+  getTicketByIDForClient(ref_num: $ref_num, input: $input) {
     data {
       _id
       ref_num
@@ -38,7 +56,8 @@ function checkTicket(props) {
   const [ref_num, setRef_num] = useState("");
   const [isSearchOnce, setIsSearchOnce] = useState(false);
 
-  const [getTicket,{ loading, data }] = useLazyQuery(getTicketByRef_num);
+  // const [getTicket,{ loading, data }] = useLazyQuery(getTicketByRef_num);
+  const [getTicketForClient,{ loading, data }] = useLazyQuery(getTicketByRef_numForClient);
 
   const onSearch = async () => {
 
@@ -50,25 +69,40 @@ function checkTicket(props) {
     }
     
     console.log(ref_num);
-    await getTicket({ variables: { ref_num: ref_num }})
-    // console.log('fetch result:', data)
-    // console.log('fetch result:', data.getTicketByID)
-    // console.log('fetch movie:', data.getTicketByID.data.movie)
+    //can get anyone ticket
+    // await getTicket({ variables: { ref_num: ref_num}})
+
+    //can only get own ticket
+    const ref_numInput = { variables: { ref_num: ref_num, input: { token: Cookies.get('token') } }}
+    console.log('ref_numInput')
+    console.log(ref_numInput)
+    await getTicketForClient(ref_numInput)
     setIsSearchOnce(true)
     console.log('isSearch: ', isSearchOnce)
   };
 
   const showTicketDetail = () => {
+    console.log('ticket data', data)
     if (data!==undefined){
       return (
     <>
     <h2 style={{textAlign:'center'}}>Ticket Info:</h2>
-    <Descriptions title="" bordered={true} style={{paddingLeft:'60px', paddingRight:'60px'}} size='medium'>
+    {/* For fetch anyone ticket */}
+    {/* <Descriptions title="" bordered={true} style={{paddingLeft:'60px', paddingRight:'60px'}} size='medium'>
       <Descriptions.Item label="ref_num">{data.getTicketByID.data.ref_num}</Descriptions.Item>
       <Descriptions.Item label="Movie">{data.getTicketByID.data.movie}</Descriptions.Item>
       <Descriptions.Item label="Theater">{data.getTicketByID.data.theater}</Descriptions.Item>
       <Descriptions.Item label="Show Time">{data.getTicketByID.data.dateTime.slice(11,16)}</Descriptions.Item>
       <Descriptions.Item label="Seat">{data.getTicketByID.data.seat}</Descriptions.Item>
+    </Descriptions> */}
+
+    {/* For fetch own ticket */}
+    <Descriptions title="" bordered={true} style={{paddingLeft:'60px', paddingRight:'60px'}} size='medium'>
+      <Descriptions.Item label="ref_num">{data.getTicketByIDForClient.data.ref_num}</Descriptions.Item>
+      <Descriptions.Item label="Movie">{data.getTicketByIDForClient.data.movie}</Descriptions.Item>
+      <Descriptions.Item label="Theater">{data.getTicketByIDForClient.data.theater}</Descriptions.Item>
+      <Descriptions.Item label="Show Time">{data.getTicketByIDForClient.data.dateTime.slice(11,16)}</Descriptions.Item>
+      <Descriptions.Item label="Seat">{data.getTicketByIDForClient.data.seat}</Descriptions.Item>
     </Descriptions>
     </>
     )
@@ -110,8 +144,14 @@ function checkTicket(props) {
         </Form.Item>
         </Form>
       {/* {loading&&<p>loading...</p>} */}
-      {isSearchOnce&&data&&data.getTicketByID==null&&<h2 style={{textAlign:'center', paddingTop:'30px'}}>Sorry, there is no ticket you are looking for.</h2>}
-      {isSearchOnce&&data&&data.getTicketByID!=null&&showTicketDetail()}
+
+      {/* For fetch anyone ticket*/}
+      {/* {isSearchOnce&&data&&data.getTicketByID==null&&<h2 style={{textAlign:'center', paddingTop:'30px'}}>Sorry, there is no ticket you are looking for.</h2>}
+      {isSearchOnce&&data&&data.getTicketByID!=null&&showTicketDetail()} */}
+
+      {/* For fetch own ticket*/}
+      {isSearchOnce&&data&&data.getTicketByIDForClient==null&&<h2 style={{textAlign:'center', paddingTop:'30px'}}>Sorry, there is no ticket you are looking for.</h2>}
+      {isSearchOnce&&data&&data.getTicketByIDForClient!=null&&showTicketDetail()}
       </Space>
 
       <Footer />

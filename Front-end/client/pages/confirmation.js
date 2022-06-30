@@ -87,7 +87,7 @@ function confirmation(props) {
                 price: (reserved.reservedSeat[i].slice(0,1)=="A"||reserved.reservedSeat[i].slice(0,1)=="B"||reserved.reservedSeat[i].slice(0,1)=="C") ? 500:300
             };
             // const ticketInput = {ref_num: "gFrE4s", email: "test@gmail.com", movie: "The Beatles Get Back", theater:1, dateTime:"2022-07-02T13:00:00.000+00:00", seat: "J6", price:300}
-            // console.log('ticket info: ',ticketInput)
+            console.log('ticket info: ',ticketInput)
 
             // await createTicket({ variables: { input: ticketInput } });
 

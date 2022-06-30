@@ -31,11 +31,16 @@ const typeDefs = `
     seat: String!
     price: Int!
   }
+
+  input FindTicketForClientInput {
+    token: String!
+  }
 `
 
 const queries = `
   getAllTicket: TicketListPayload
   getTicketByID(ref_num: String!): TicketPayload
+  getTicketByIDForClient(ref_num: String!, input: FindTicketForClientInput!): TicketPayload
 `
 
 const mutations = `
@@ -46,6 +51,7 @@ const resolvers = {
     Query: {
         getAllTicket: (_, args) => ticketController.getTicketList(),
         getTicketByID: (_, args) => ticketController.getTicketByID(args.ref_num),
+        getTicketByIDForClient: (_, args) => ticketController.getTicketByIDForClient(args.ref_num, args.input),
     },
     Mutation : {
         createTicket: (_, args) => {
