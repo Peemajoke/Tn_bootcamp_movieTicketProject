@@ -1,7 +1,9 @@
 import React from "react";
 import { Card } from "antd";
 import { useDispatch, useSelector } from 'react-redux'
-import {Space} from "antd"
+import {Space, Typography} from "antd"
+
+const { Title } = Typography;
 
 function MovieDetail(props) {
 
@@ -10,7 +12,7 @@ function MovieDetail(props) {
   return (
     <>
       <div className="site-card-border-less-wrapper">
-        <Card title={selectedMovie.movieName} bordered={false} style={{ width: '90%', backgroundColor: "#efefef" }}>
+        <Card title={<Title level={3}>{selectedMovie.movieName}</Title>} bordered={true} style={{ width: '100%', paddingLeft: '100px', paddingRight: '100px', fontSize:'16px' }}>
         <Space direction="horizontal">
         <img
               alt="example"

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/Footer";
 import { AudioOutlined } from "@ant-design/icons";
-import { Input, Space, Descriptions, Modal } from "antd";
+import { Input, Space, Descriptions, Modal, Form } from "antd";
 import { useMutation, useLazyQuery, gql } from "@apollo/client";
 
 const { Search } = Input;
@@ -60,13 +60,18 @@ function checkTicket(props) {
 
   const showTicketDetail = () => {
     if (data!==undefined){
-      return (<Descriptions title="Ticket Info">
+      return (
+    <>
+    <h2 style={{textAlign:'center'}}>Ticket Info:</h2>
+    <Descriptions title="" bordered={true} style={{paddingLeft:'60px', paddingRight:'60px'}} size='medium'>
       <Descriptions.Item label="ref_num">{data.getTicketByID.data.ref_num}</Descriptions.Item>
       <Descriptions.Item label="Movie">{data.getTicketByID.data.movie}</Descriptions.Item>
       <Descriptions.Item label="Theater">{data.getTicketByID.data.theater}</Descriptions.Item>
       <Descriptions.Item label="Show Time">{data.getTicketByID.data.dateTime.slice(11,16)}</Descriptions.Item>
       <Descriptions.Item label="Seat">{data.getTicketByID.data.seat}</Descriptions.Item>
-    </Descriptions>)
+    </Descriptions>
+    </>
+    )
     }else return null
   }
 
@@ -79,18 +84,36 @@ function checkTicket(props) {
       </Head>
       <Navbar />
 
-      <h1>Check For Ticket Information</h1>
-      <Search
-        placeholder="type ticket's ref_number"
-        allowClear
-        onSearch={onSearch}
-        style={{ width: 300 }}
-        onChange={(e) => setRef_num(e.target.value)}
-      />
-      <br />
+      <Space direction="vertical" style={{height: '87vh', width:'100%', paddingTop:"3%"}} >
+      <h1 style={{textAlign:'center', paddingTop:'30px'}}>Check For Ticket Information</h1>
+        <Form
+        name="basic"
+        labelCol={{ span: 11 }}
+        wrapperCol={{ span: 16 }}
+        initialValues={{ remember: true }}
+        autoComplete="off"
+        style={{paddingTop:'20px'}}
+      >
+        <Form.Item
+          label="Ticket's reference code"
+          name="refcode"
+          rules={[{ required: true, message: "Please input ticket's reference code" }]}
+          style={{ width:'100%'}}
+        >
+        <Search
+          placeholder="type ticket's ref_number"
+          allowClear
+          onSearch={onSearch}
+          style={{ width: 300 }}
+          onChange={(e) => setRef_num(e.target.value)}
+        />
+        </Form.Item>
+        </Form>
       {/* {loading&&<p>loading...</p>} */}
-      {isSearchOnce&&data&&data.getTicketByID==null&&<p>Sorry, there is no ticket you are looking for.</p>}
+      {isSearchOnce&&data&&data.getTicketByID==null&&<h2 style={{textAlign:'center', paddingTop:'30px'}}>Sorry, there is no ticket you are looking for.</h2>}
       {isSearchOnce&&data&&data.getTicketByID!=null&&showTicketDetail()}
+      </Space>
+
       <Footer />
     </>
   );

@@ -23,11 +23,13 @@ class Navbar extends Component {
   };
 
   componentDidMount() {
-    if (Cookies.get('token')=='null') {
+    // console.log("cookie", Cookies.get('token'))
+    if (Cookies.get('token')===undefined || Cookies.get('token')=='null') {
       this.setState({
         isLogin: false,
       });
-    } else {
+    } 
+    else if(Cookies.get('token')!==undefined) {
       this.setState({
         isLogin: true,
       });
@@ -44,6 +46,7 @@ class Navbar extends Component {
         </div>
         <div className="menuCon">
           <div className="leftMenu">
+            {/* <LeftMenu isnowlogin={this.state.isLogin}/> */}
             <LeftMenu isnowlogin={this.state.isLogin}/>
           </div>
           <div className="rightMenu">

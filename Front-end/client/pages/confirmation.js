@@ -2,13 +2,15 @@ import React, {useCallback} from 'react';
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useDispatch, useSelector } from "react-redux";
-import { Descriptions, Space, Button } from 'antd';
+import { Descriptions, Space, Button, Typography } from 'antd';
 import Link from 'next/link'
 import { useMutation, useQuery, gql } from "@apollo/client";
 import jwt from 'jsonwebtoken'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import Head from "next/head";
+
+const { Title } = Typography;
 
 const createTicketMutation = gql`
   mutation ($input: ticketInput!) {
@@ -172,7 +174,7 @@ function confirmation(props) {
                         totalPrice += thisPrice
                         return(
                             <div style={{alignContent:"center"}}>
-                            <Descriptions title={`Ticket ${index+1}`} style={{ padding:'30px', width:'800px'}}>
+                            <Descriptions bordered title={<Title level={3}>{`Ticket ${index+1}`}</Title>} style={{ paddingLeft:'22%', paddingRight: '22%', paddingTop: '2%', paddingBottom: '2%', width:'100%'}}>
                                 <Descriptions.Item label="Movie">{reserved.movieName}</Descriptions.Item>
                                 <Descriptions.Item label="Theater">{reserved.theater}</Descriptions.Item>
                                 <Descriptions.Item label="ShowTime">{reserved.showTime.slice(11,16)}</Descriptions.Item>
@@ -198,22 +200,26 @@ function confirmation(props) {
 
         <Navbar />
 
-        <h1>Confirm your reservation</h1>
+        <div style={{height: '87vh'}}>
+        <h1 style={{textAlign:'center', paddingTop:'30px'}}>Confirm your reservation.</h1>
         {genReservation()}
-        <h3>Total price: {totalPrice} THB</h3>
+        <h3 style={{textAlign:'center', paddingBottom: '30px'}}>Total price: {totalPrice} THB</h3>
 
-        <Space direction='horizontal'>
+        <Space direction='horizontal' style={{width: '100%', paddingLeft: '33%', paddingBottom: '50px'}}>
             <Link href="/reserveSeat">
-                <Button >Back to seat selecting</Button>
+                <Button style={{width:'300px'}}>Back to seat selecting</Button>
             </Link>
+            <span style={{marginLeft: '35px'}}></span>
             <Button type='primary' onClick={() => {
                 performReservation()
                 updateReserveSeat()
                 router.push('/ticketResult')
-            }}>Confirm</Button>
+            }}
+            style={{width:'300px'}}>Confirm</Button>
         </Space>
-
-        <Footer />
+        </div>
+        {/* <Footer /> */}
+       
         </>
     );
 }

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React, { useState } from "react";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, Space } from "antd";
 import Navbar from "../components/navbar";
 import Footer from "../components/Footer";
 import { useMutation, useQuery, gql } from "@apollo/client";
@@ -27,11 +27,24 @@ function login(props) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isConfirmPasswordMatched, setisConfirmPasswordMatched] = useState(true)
 
-  const [login, { loading: mutationLoading, error: mutationError, data }] =
+  let [login, { loading: mutationLoading, error: mutationError, data }] =
     useMutation(doLoginMutation);
 
   const router = useRouter()
+
+  const assignToken = (token) => {
+    if (token) {
+      setisConfirmPasswordMatched(true)
+      console.log("data success");
+      document.cookie = "token=" + data.login.token;
+      if(selectedMovieName) router.push('/reserveSeat')
+      else router.push('/')
+    }else{
+      setisConfirmPasswordMatched(false)
+    }
+  }
 
   const loginWithGQL = async () => {
     const loginInput = {
@@ -40,16 +53,19 @@ function login(props) {
     };
 
     await login({ variables: { input: loginInput } });
-    console.log(mutationLoading);
 
-    console.log(data)
-
-    if (data.login.success) {
+    if (data!==undefined&&data.login&&data.login.success) {
+      setisConfirmPasswordMatched(true)
       console.log("data success");
       document.cookie = "token=" + data.login.token;
+      if(selectedMovieName) router.push('/reserveSeat')
+      else router.push('/')
+    }else if(data!==undefined){
+      setisConfirmPasswordMatched(false)
     }
 
-    console.log(document.cookie);
+    // console.log(document.cookie);
+
   };
 
   const loginDirect = async () => {
@@ -80,6 +96,9 @@ function login(props) {
           console.log(document.cookie);
         }
       });
+
+    if(selectedMovieName) router.push('/reserveSeat')
+    else router.push('/')
   };
 
   const onSubmit = async () => {
@@ -87,15 +106,24 @@ function login(props) {
     console.log(password);
 
     await loginWithGQL();
+
+      // if(data!==undefined && data.login.success){
+      //   setisConfirmPasswordMatched(true)
+      //   assignToken(data.login.token);
+      // }else if(data!==undefined){
+      //   setisConfirmPasswordMatched(false)
+      // }
+    
     // loginDirect();
+
     // if (document.cookie) {
     //   router.push('/')
     // }
-    if (Cookies.get('token')!=null){
-      console.log(Cookies.get('token'))
-      if(selectedMovieName) router.push('/reserveSeat')
-      else router.push('/')
-    }
+    // if (Cookies.get('token')!=null){
+    //   console.log(Cookies.get('token'))
+    //   if(selectedMovieName) router.push('/reserveSeat')
+    //   else router.push('/')
+    // }
   };
 
   return (
@@ -106,7 +134,8 @@ function login(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <h1>Login</h1>
+      <Space direction="vertical" style={{height: '87vh', width:'100%', paddingTop:"8%"}}>
+      <h1 style={{textAlign:'center', paddingTop:'30px'}}>Login</h1>
       <Form
         name="basic"
         labelCol={{ span: 8 }}
@@ -122,18 +151,21 @@ function login(props) {
           label="Email"
           name="email"
           rules={[{ required: true, message: "Please input your email!" }]}
-          style={{ width: "40%" }}
+          style={{ width: "100%" }}
+          validateStatus={isConfirmPasswordMatched ? '':'error'}
         >
-          <Input type="email" onChange={(e) => setEmail(e.target.value)} />
+          <Input type="email" onChange={(e) => setEmail(e.target.value)} style={{width:'50%'}}/>
         </Form.Item>
 
         <Form.Item
           label="Password"
           name="password"
           rules={[{ required: true, message: "Please input your password!" }]}
-          style={{ width: "40%" }}
+          style={{ width: "100%" }}
+          validateStatus={isConfirmPasswordMatched ? '':'error'}
+          help={isConfirmPasswordMatched? null:'Email or Password is wrong.' }
         >
-          <Input.Password onChange={(e) => setPassword(e.target.value)} />
+          <Input.Password onChange={(e) => setPassword(e.target.value)} style={{width:'50%'}}/>
         </Form.Item>
         {/* 
       <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
@@ -141,12 +173,12 @@ function login(props) {
       </Form.Item> */}
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" block style={{width:'50%'}}>
             Submit
           </Button>
         </Form.Item>
       </Form>
-      {/* <p>{Cookies.get('token')}</p> */}
+      </Space>
       <Footer />
     </>
   );

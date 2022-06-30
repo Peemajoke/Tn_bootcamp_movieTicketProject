@@ -3,7 +3,7 @@ import { useMutation, useQuery, gql } from "@apollo/client";
 import { Card, Space } from "antd";
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-
+import Cookies from "js-cookie";
 const { Meta } = Card;
 
 const getMovies = gql`
@@ -31,6 +31,7 @@ function MoviesList(props) {
   const router = useRouter()
   const { loading, error, data } = useQuery(getMovies);
   console.log(data);
+  console.log(Cookies.get('token')===undefined )
 
   function sentSelectedMovie(movieObject){
     console.log("action params:", movieObject)
@@ -54,22 +55,27 @@ function MoviesList(props) {
   const genMovieCard = () => {
     return data.getAllMovie.data.map((item) => {
       return (
+        <>
         <Card
           onClick={() => {
             selectMovie(item)
             router.push('/showTime')
         }}
           hoverable
-          style={{ width: 240, padding: 10 }}
+          style={{ width: 260, padding: 0 }}
           cover={
             <img
               alt="example"
               src={item.coverURL}
+              style={{width: "250px", height:"320px", paddingLeft:10, paddingTop:10}}
             />
           }
+          size={'large'}
         >
           <Meta title={item.name} description={item.genre} />
         </Card>
+        <span style={{marginLeft: '20px'}}></span>
+        </>
       );
     });
     // return [<Card
@@ -100,12 +106,12 @@ function MoviesList(props) {
   };
 
   return (
-    <>
-      <h1 style={{textAlign:'center'}}>Movie List</h1>
-      <Space direction="horizontal">
+    <Space direction="vertical" style={{height: '100vh', width:'100%'}}>
+      <h1 style={{textAlign:'center', paddingTop:'30px'}}>Movie List</h1>
+      <Space direction="horizontal" style={{paddingLeft:'100px', paddingRight:'100px', paddingTop: '20px', paddingBottom:'20px'}}>
       {data&&genMovieCard()}
       </Space>
-    </>
+    </Space>
   );
 }
 

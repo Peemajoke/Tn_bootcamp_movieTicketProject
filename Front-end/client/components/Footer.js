@@ -9,7 +9,7 @@ class Navbar extends Component {
       <div>
         <Layout className="layout">
           <Footer style={{ textAlign: "center" }}>
-            Ant Design ©2018 Created by Ant UED
+            S Major F ©2022 Created by Peem
           </Footer>
         </Layout>
       </div>

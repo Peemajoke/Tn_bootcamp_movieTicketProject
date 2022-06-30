@@ -8,7 +8,7 @@ import MoviesList from "../components/MoviesList";
 import { Carousel } from 'antd';
 
 const contentStyle = {
-  height: '500px',
+  height: '700px',
   width: '100%',
   color: '#fff',
   lineHeight: '250px',
@@ -27,8 +27,7 @@ export default function Home() {
 
       <Navbar />
 
-      {/* <Content>Welcome!</Content> */}
-      <Carousel autoplay>
+      <Carousel autoplay style={{paddingLeft:'100px', paddingRight:'100px', paddingTop: '20px'}}>
     <div>
       <h3 style={contentStyle}>
         <img src="https://i.ibb.co/KxVmH9M/truemoneywallet-major-cineplex-promotion-20210928-1100x550px.webp" style={{width:'100%', height:'100%'}}/>

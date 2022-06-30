@@ -58,8 +58,9 @@ function showTime(props) {
       <Space direction="horizontal">
         {filteredShowTime.map((item) => {
           return (
+            <>
             <Card
-              style={{ width: 300 }}
+              style={{ width: 250, height: 80 }}
               hoverable
               onClick={() => {
                 proceedToReservation(item)
@@ -67,6 +68,8 @@ function showTime(props) {
             >
               <p>{item.dateTime.slice(11,16)}</p>
             </Card>
+            <span style={{marginLeft: '20px'}}></span>
+            </>
           );
         })}
       </Space>
@@ -81,13 +84,15 @@ function showTime(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <h1>Movie Detail and Showtime.</h1>
+      {/* <h1>Movie Detail and Showtime.</h1> */}
+      <div style={{height:'87vh'}}>
       <MovieDetail />
-      <Space direction="vertical">
-        <h3>Select the day you want to reserve seats.</h3>
-        <DatePicker onChange={onChange} />
+        <h2 style={{textAlign:'center', paddingTop:'30px'}}>Select the day you want to reserve seats.</h2>
+      <DatePicker onChange={onChange} style={{display: 'flex',  justifyContent:'center', alignItems:'center', width:'300px', marginLeft:'43%' }}/>
+      <Space direction="vertical" style={{paddingLeft: '25%', paddingRight: '25%', paddingTop: '3%', paddingBottom: '3%'}}>
         {!isSelectShowTime&&genShowtime()}
       </Space>
+      </div>
       <Footer />
     </>
   );

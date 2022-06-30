@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React, {useState} from "react";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, Space  } from "antd";
 import Navbar from "../components/navbar";
 import Footer from "../components/Footer";
 import { useMutation, useQuery, gql } from "@apollo/client";
@@ -17,9 +17,10 @@ const doRegisterMutation = gql`
 function register(props) {
     const [email,setEmail] = useState('')
     const [password, setPassword] = useState('')
-    // const [confirmPassword, setConfirmPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
     const [firstname,setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
+    const [isConfirmPasswordMatched, setisConfirmPasswordMatched] = useState(true)
 
     const router = useRouter()
     
@@ -31,15 +32,20 @@ function register(props) {
         // console.log(lastname)
         // console.log(email)
         // console.log(password)
-        const RegisterInput = {
-          email,
-          password,
-          firstname,
-          lastname
-        };
-        await register({ variables: { input: RegisterInput } });
+        if(password!=confirmPassword){
+          setisConfirmPasswordMatched(false)
+        }else{
+          setisConfirmPasswordMatched(true)
+          const RegisterInput = {
+            email,
+            password,
+            firstname,
+            lastname
+          };
+          await register({ variables: { input: RegisterInput } });
 
-        router.push('/login')
+          router.push('/login')
+        }
     }
 
   return (
@@ -50,7 +56,8 @@ function register(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <h1>Register</h1>
+      <Space direction="vertical" style={{height: '87vh', width:'100%', paddingTop:"3%"}} >
+      <h1 style={{textAlign:'center', paddingTop:'30px'}}>Register</h1>
       <Form
         name="basic"
         labelCol={{ span: 8 }}
@@ -66,53 +73,55 @@ function register(props) {
           label="Firstname"
           name="firstname"
           rules={[{ required: true, message: "Please input your firstname!" }]}
-          style={{ width: "40%" }}
+          style={{ width:'100%'}}
         >
-          <Input onChange={e => setFirstname(e.target.value)}/>
+          <Input onChange={e => setFirstname(e.target.value)} style={{width:'50%'}}/>
         </Form.Item>
 
         <Form.Item
           label="Lastname"
           name="lastname"
           rules={[{ required: true, message: "Please input your lastname!" }]}
-          style={{ width: "40%" }}
+          style={{ width: "100%" }}
         >
-          <Input onChange={e => setLastname(e.target.value)}/>
+          <Input onChange={e => setLastname(e.target.value)} style={{width:'50%'}}/>
         </Form.Item>
         <Form.Item
           label="Email"
           name="email"
           rules={[{ required: true, message: "Please input your email!" }]}
-          style={{ width: "40%" }}
+          style={{ width: "100%" }}
         >
-          <Input type='email' onChange={e => setEmail(e.target.value)}/>
+          <Input type='email' onChange={e => setEmail(e.target.value)} style={{width:'50%'}}/>
         </Form.Item>
 
         <Form.Item
           label="Password"
           name="password"
           rules={[{ required: true, message: "Please input your password!" }]}
-          style={{ width: "40%" }}
+          style={{ width: "100%" }}
         >
-          <Input.Password onChange={e => setPassword(e.target.value)}/>
+          <Input.Password onChange={e => setPassword(e.target.value)} style={{width:'50%'}}/>
         </Form.Item>
 
-        {/* <Form.Item
+        <Form.Item
           label="Confirm Password"
           name="confirm password"
           rules={[{ required: true, message: "Please input your password!" }]}
-          style={{ width: "40%" }}
+          style={{ width: "100%" }}
+          validateStatus={isConfirmPasswordMatched ? '':'error'}
+          help={isConfirmPasswordMatched? null:'Confirm password should be he same as Password' }
         >
-          <Input.Password onChange={e => setConfirmPassword(e.target.value)}/>
-        </Form.Item> */}
+          <Input.Password onChange={e => setConfirmPassword(e.target.value)} style={{width:'50%'}}/>
+        </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit" onClick={onSubmit}>
+          <Button type="primary" htmlType="submit" onClick={onSubmit} block style={{width:'50%'}}>
             Submit
           </Button>
         </Form.Item>
       </Form>
-
+      </Space>
       <Footer />
     </>
   );

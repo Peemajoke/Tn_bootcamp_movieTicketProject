@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import MovieDetail from "../components/MovieDetail";
 import SeatPicker from "react-seat-picker";
 import Cookies from "js-cookie";
-import { Button, Modal } from "antd";
+import { Button, Modal, Divider } from "antd";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector, } from "react-redux";
 import Head from "next/head";
@@ -198,9 +198,8 @@ function reserveSeat(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <h1>reserveSeat</h1>
       <MovieDetail />
-      <h2 style={{textAlign: 'center'}}>Theater: {selectedShowTime.theater}</h2>
+      <h2 style={{textAlign: 'center', paddingTop:'20px'}}>Theater: {selectedShowTime.theater}</h2>
       <h2 style={{textAlign: 'center'}}>Showtime: {selectedShowTime.showTime.slice(11,16)}</h2>
 
       <div className="App">
@@ -209,7 +208,8 @@ function reserveSeat(props) {
         addSeatCallback={addSeatCallback}
         removeSeatCallback={removeSeatCallback}
         rows={rows}
-        maxReservableSeats={Cookies.get("token") !== "null" ? 100 : 0}
+        // maxReservableSeats={Cookies.get("token") !== "null" ? 100 : 0}
+        maxReservableSeats={100}
         selectedByDefault
         visible
       />
@@ -217,21 +217,28 @@ function reserveSeat(props) {
       </div>
       {Cookies.get("token") === "null" && (
         <>
-          <p>Please login to make a reservation</p>
+          <h3 style={{textAlign:'center'}}>Please login to make a reservation</h3>
           <Button
             type="primary"
             onClick={() => {
+              selectSeat(selectedSeat)
               router.push("/login");
             }}
+            block
+            style={{display: 'flex',  justifyContent:'center', alignItems:'center', width:'500px', marginLeft:'38%', marginRight:'38%' }}
           >
             Login
           </Button>
-          <p>Or if you don't have an account</p>
+          <Divider />
+          <h3 style={{textAlign:'center'}}>If you don't have an account</h3>
           <Button
             type="text"
             onClick={() => {
+              selectSeat(selectedSeat)
               router.push("/register");
             }}
+            block
+            style={{display: 'flex',  justifyContent:'center', alignItems:'center', width:'500px', marginLeft:'38%', marginRight:'38%' }}
           >
             Register
           </Button>
@@ -250,6 +257,8 @@ function reserveSeat(props) {
             }
             }
         }
+        block
+        style={{display: 'flex',  justifyContent:'center', alignItems:'center', width:'500px', marginLeft:'38%', marginRight:'38%', marginBottom:'3%' }}
           >
             Make a Reservation
           </Button>

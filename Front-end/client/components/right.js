@@ -25,17 +25,12 @@ const  doingLogout = () => {
 }
 
 const displayEmail = () => {
-  if (Cookies.get('token') != 'null'){
+  if (Cookies.get('token')!==undefined && Cookies.get('token') != 'null'){
     return jwt.decode(Cookies.get('token')).email
   }else return null
 }
 
 class RightMenu extends Component {
-
-  componentDidMount() {
-    // console.log(document.cookie)
-    // console.log(jwt.decode(Cookies.get('token')))
-  }
   
   render() {
     return (
