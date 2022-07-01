@@ -1,10 +1,12 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useState} from "react";
 import { useMutation, useQuery, gql } from "@apollo/client";
-import { Card, Space } from "antd";
+import { Card, Space, Input } from "antd";
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import Cookies from "js-cookie";
 const { Meta } = Card;
+
+const { Search } = Input;
 
 const getMovies = gql`
   query {
@@ -78,38 +80,50 @@ function MoviesList(props) {
         </>
       );
     });
-    // return [<Card
-    //     onClick={() => console.log(data.getAllMovie.data)}
-    //     hoverable
-    //     style={{ width: 240, padding: 10 }}
-    //     cover={
-    //       <img
-    //         alt="example"
-    //         src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-    //       />
-    //     }
-    //   >
-    //     <Meta title="Europe Street beat" description="www.instagram.com" />
-    //   </Card>,
-    //   <Card
-    //     hoverable
-    //     style={{ width: 240, padding: 10 }}
-    //     cover={
-    //       <img
-    //         alt="example"
-    //         src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-    //       />
-    //     }
-    //   >
-    //     <Meta title="Europe Street beat" description="www.instagram.com" />
-    //   </Card>]
   };
+
+  const [filterMovie, setFilterMovie] = useState("");
+
+  const filterMovieTitle = (data) => {
+    return data.name.toLowerCase().includes(filterMovie)
+  }
+
+  const onSearch = () => {
+    const filterMovieList = data.getAllMovie.data.filter(filterMovieTitle)
+    return filterMovieList.map((item) => {
+      return (
+        <>
+        <Card
+          onClick={() => {
+            selectMovie(item)
+            router.push('/showTime')
+        }}
+          hoverable
+          style={{ width: 260, padding: 0 }}
+          cover={
+            <img
+              alt="example"
+              src={item.coverURL}
+              style={{width: "250px", height:"320px", paddingLeft:10, paddingTop:10}}
+            />
+          }
+          size={'large'}
+        >
+          <Meta title={item.name} description={item.genre} />
+        </Card>
+        <span style={{marginLeft: '20px'}}></span>
+        </>
+      );
+    });
+  }
 
   return (
     <Space direction="vertical" style={{height: '100vh', width:'100%'}}>
       <h1 style={{textAlign:'center', paddingTop:'30px'}}>Movie List</h1>
-      <Space direction="horizontal" style={{paddingLeft:'100px', paddingRight:'100px', paddingTop: '20px', paddingBottom:'20px'}}>
-      {data&&genMovieCard()}
+      <Search placeholder="input movie title" style={{ width: 500, paddingLeft:'5%', paddingRight:'5%' }} onChange={(e) => setFilterMovie(e.target.value.toLowerCase())}/>
+      <Space direction="horizontal" style={{paddingLeft:'5%', paddingRight:'5%', paddingTop: '20px', paddingBottom:'20px'}}>
+      {filterMovie!=''&&data&&onSearch()}
+      {filterMovie==''&&data&&genMovieCard()}
       </Space>
     </Space>
   );

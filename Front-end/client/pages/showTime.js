@@ -38,6 +38,7 @@ function showTime(props) {
   const [isSelectShowTime, setIsSelectShowTime] = useState(false);
 
   const onChange = (date, dateString) => {
+    setIsSelectShowTime(true)
     setSelectedDate(dateString);
     console.log(date, dateString);
   };
@@ -47,14 +48,17 @@ function showTime(props) {
   }
 
   const proceedToReservation = (item) => {
-    setIsSelectShowTime(true)
     selectShowTime(item)
     router.push('/reserveSeat')
   }
 
+  const filteredShowTime = selectedMovieShowTime.filter(filterDate)
+
   const genShowtime = () => {
-    const filteredShowTime = selectedMovieShowTime.filter(filterDate)
+    // const filteredShowTime = selectedMovieShowTime.filter(filterDate)
     return (
+      <>
+      {/* {filteredShowTime.length==0&&<h2 style={{textAlign:'center', paddingTop:'30px'}}>Sorry, there is no showtime for this date.</h2>} */}
       <Space direction="horizontal">
         {filteredShowTime.map((item) => {
           return (
@@ -73,6 +77,7 @@ function showTime(props) {
           );
         })}
       </Space>
+      </>
     );
   };
 
@@ -89,8 +94,9 @@ function showTime(props) {
       <MovieDetail />
         <h2 style={{textAlign:'center', paddingTop:'30px'}}>Select the day you want to reserve seats.</h2>
       <DatePicker onChange={onChange} style={{display: 'flex',  justifyContent:'center', alignItems:'center', width:'300px', marginLeft:'43%' }}/>
+      {isSelectShowTime&&filteredShowTime.length==0&&<h2 style={{textAlign:'center', paddingTop:'30px'}}>Sorry, there is no showtime for this date.</h2>}
       <Space direction="vertical" style={{paddingLeft: '25%', paddingRight: '25%', paddingTop: '3%', paddingBottom: '3%'}}>
-        {!isSelectShowTime&&genShowtime()}
+        {isSelectShowTime&&genShowtime()}
       </Space>
       </div>
       <Footer />
