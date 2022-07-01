@@ -88,8 +88,12 @@ function MoviesList(props) {
     return data.name.toLowerCase().includes(filterMovie)
   }
 
+  
   const onSearch = () => {
     const filterMovieList = data.getAllMovie.data.filter(filterMovieTitle)
+    if(filterMovieList.length==0){
+      return <h2 style={{textAlign:'center', paddingTop:'30px'}}>Sorry, there is no movie you are looking for.</h2>
+    }
     return filterMovieList.map((item) => {
       return (
         <>

@@ -199,6 +199,7 @@ function reserveSeat(props) {
       </Head>
       <Navbar />
       <MovieDetail />
+      <h2 style={{textAlign: 'center', paddingTop:'20px'}}>Row A to C: 500 THB/seat &nbsp;&nbsp;&nbsp;&nbsp; Row D to J: 300 THB/seat</h2>
       <h2 style={{textAlign: 'center', paddingTop:'20px'}}>Theater: {selectedShowTime.theater}</h2>
       <h2 style={{textAlign: 'center'}}>Showtime: {selectedShowTime.showTime.slice(11,16)}</h2>
 
@@ -225,7 +226,7 @@ function reserveSeat(props) {
               router.push("/login");
             }}
             block
-            style={{display: 'flex',  justifyContent:'center', alignItems:'center', width:'500px', marginLeft:'38%', marginRight:'38%' }}
+            style={{display: 'flex',  justifyContent:'center', alignItems:'center', width:'500px', marginLeft:'37%', marginRight:'37%' }}
           >
             Login
           </Button>
@@ -238,10 +239,11 @@ function reserveSeat(props) {
               router.push("/register");
             }}
             block
-            style={{display: 'flex',  justifyContent:'center', alignItems:'center', width:'500px', marginLeft:'38%', marginRight:'38%' }}
+            style={{display: 'flex',  justifyContent:'center', alignItems:'center', width:'500px', marginLeft:'37%', marginRight:'37%' }}
           >
             Register
           </Button>
+          <br />
         </>
       )}
       {Cookies.get("token") !== "null" && (
@@ -258,7 +260,7 @@ function reserveSeat(props) {
             }
         }
         block
-        style={{display: 'flex',  justifyContent:'center', alignItems:'center', width:'500px', marginLeft:'38%', marginRight:'38%', marginBottom:'3%' }}
+        style={{display: 'flex',  justifyContent:'center', alignItems:'center', width:'500px', marginLeft:'37%', marginRight:'37%', marginBottom:'3%' }}
           >
             Make a Reservation
           </Button>
