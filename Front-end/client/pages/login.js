@@ -79,33 +79,43 @@ function login(props) {
 
     fetch(url, options)
       .then((response) => {
+        console.log(response)
         if (!response.ok) {
-          if (response.status === 404) {
-            alert("Email not found, please retry");
-          }
-          if (response.status === 401) {
-            alert("Email and password do not match, please retry");
-          }
+          // if (response.status === 404) {
+          //   alert("Email not found, please retry");
+          // }
+          // if (response.status === 401) {
+          //   alert("Email and password do not match, please retry");
+          // }
+          setisConfirmPasswordMatched(false)
+        }else{
+          setisConfirmPasswordMatched(true)
+          return response;
         }
-        return response;
       })
-      .then((response) => response.json())
+      .then((response) => {
+        if(response){
+        console.log('response', response)
+        return response.json()
+        }
+      })
       .then((data) => {
-        if (data.success) {
+        console.log("yes", data)
+        if (data) {
+          console.log("more yes")
           document.cookie = "token=" + data.token;
           console.log(document.cookie);
+          if(selectedMovieName) router.push('/reserveSeat')
+          else router.push('/')
         }
       });
-
-    if(selectedMovieName) router.push('/reserveSeat')
-    else router.push('/')
   };
 
   const onSubmit = async () => {
     console.log(email);
     console.log(password);
 
-    await loginWithGQL();
+    // await loginWithGQL();
 
       // if(data!==undefined && data.login.success){
       //   setisConfirmPasswordMatched(true)
@@ -114,7 +124,7 @@ function login(props) {
       //   setisConfirmPasswordMatched(false)
       // }
     
-    // loginDirect();
+    loginDirect();
 
     // if (document.cookie) {
     //   router.push('/')
